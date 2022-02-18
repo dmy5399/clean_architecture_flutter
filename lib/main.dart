@@ -1,6 +1,15 @@
+import 'dart:io';
+import 'package:clean_architecture/globals.dart';
+import 'package:dio/adapter.dart';
 import 'package:flutter/material.dart';
 
 void main() {
+  // Do not check http certificates
+  (dio.httpClientAdapter as DefaultHttpClientAdapter).onHttpClientCreate = (HttpClient client) {
+    client.badCertificateCallback = (X509Certificate cert, String host, int port) => true;
+    return client;
+  };
+
   runApp(const App());
 }
 
